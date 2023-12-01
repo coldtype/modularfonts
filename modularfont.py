@@ -1,4 +1,4 @@
-import datetime, inspect
+import datetime, inspect, re
 
 from subprocess import run
 from defcon import Font as DFont
@@ -92,7 +92,6 @@ class modularfont(animation):
     def __init__(self,
         lookup,
         file:Path,
-        slug:str,
         font_name="Test",
         style_name="Regular",
         cap_height=750,
@@ -110,10 +109,9 @@ class modularfont(animation):
         self.preview_frame = Rect(pw, ph if ph else (-descender*2) + cap_height)
 
         self.dir = file.parent
-        self.slug = codesafe(slug)
         self.codesafeName= codesafe(font_name) + "_" + codesafe(style_name)
 
-        ufos_dir = file.parent / "ufos" / self.slug
+        ufos_dir = file.parent / "ufos"
         ufos_dir.mkdir(exist_ok=True, parents=True)
         ufo_path = ufos_dir / f"{self.codesafeName}.ufo"
 

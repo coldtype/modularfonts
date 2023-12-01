@@ -205,7 +205,6 @@ def show_grid(p):
 
 @modularfont(globals(),
     ººFILEºº,
-    "jocline",
     "Joc Line",
     "Regular",
     preview_size=(1300, None),

@@ -1,5 +1,5 @@
 from coldtype import *
-from coldtype.renderable.font import generativefont, glyphfn
+from modularfont import * #INLINE
 from textwrap import indent
 
 VERSIONS = {
@@ -182,8 +182,8 @@ def show_grid(p):
         print(e)
         return p
 
-@generativefont(globals(),
-    ººsiblingºº(f"bombere_{version.lower()}.ufo"),
+@modularfont(globals(),
+    ººFILEºº,
     "Bombere",
     version,
     preview_size=(1300, 1100),

@@ -1,5 +1,5 @@
 from coldtype import *
-from coldtype.renderable.font import generativefont, glyphfn
+from modularfont import * #INLINE
 
 # https://www.flickr.com/photos/stewf/52271541822/in/album-72157719832552236/
 # https://fontsinuse.com/static/inline-images/1692/Letraset-Letragraphica-Vincent-LG1624-LG1625.jpg
@@ -9,8 +9,8 @@ rs = Rect(750, 1000).o(0,-250).grid(3, 4)
 rs_extra = Rect(250, 1000).o(750,-250).grid(1,4)
 rs = rs + rs_extra
 
-o1 = 50
-o2 = 20
+o1 = 30
+o2 = 10
 
 rC0 = Rect(750-o1*2, 750-o1*2)
 rC = rC0.grid(2, 2)
@@ -302,15 +302,17 @@ def three(_):
 
 @glyphfn("auto")
 def four(_):
-    return P(
-        cr(0,0,5).t(0,-o1*2),li(0,3,"N").t(0,-o1*2),
-        di(rs[3].pne,rs[6].pse).reverse(),
-        li(0,6,"E","N")
-        )
     return (P(
         cr(0,0,1).drop(o1*2,"N"),li(0,3,"N"),
         di(rs[3].pne,rs[6].pse).reverse(),
         li(0,6,"E","N")))
+
+@glyphfn("auto")
+def four_ss01(_):
+    return P(
+        cr(0,0,5).t(0,-o1*2),li(0,3,"N").t(0,-o1*2),
+        di(rs[3].pne,rs[6].pse).reverse(),
+        li(0,6,"E","N"))
 
 @glyphfn("auto")
 def five(_):
@@ -681,8 +683,8 @@ def show_grid(p):
     
     return grid.tag("guide") + p
 
-@generativefont(globals(),
-    ººsiblingºº("vincent.ufo"),
+@modularfont(globals(),
+    ººFILEºº,
     "Vincent",
     "Regular",
     default_lsb=30,
