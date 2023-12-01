@@ -204,7 +204,6 @@ def show_grid(p):
     return grid.tag("guide") + p
 
 @modularfont(globals(),
-    ººFILEºº,
     "Joc Line",
     "Regular",
     preview_size=(1300, None),
@@ -231,7 +230,7 @@ def spacecenter(f):
 @renderable((1080, 290))
 def smoke(r):
     try:
-        return StSt("SMOKE PROOF", Font(gufo.fontmake_path(find=True)), 70, ss01=1).align(r, ty=1).f(0)
+        return StSt("SMOKE\nPROOF", gufo.fontmake_font(), 120, ss01=1).align(r, ty=1).f(0)
     except FontNotFoundException:
         print("FONT NOT FOUND")
         return None

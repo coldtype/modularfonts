@@ -10,7 +10,7 @@ rs_extra = Rect(250, 1000).o(750,-250).grid(1,4)
 rs = rs + rs_extra
 
 o1 = 30
-o2 = 10
+o2 = 20
 
 rC0 = Rect(750-o1*2, 750-o1*2)
 rC = rC0.grid(2, 2)
@@ -244,6 +244,13 @@ def y(_):
         li(0,3,"W","S"), cr(0,6,0,"N"),
         li(1,7,"WE"), li(0,4,"W"),
         li(0,10,"W"))
+
+@glyphfn("auto", sps, sps)
+def y_ss01(_):
+    return P(
+        li(0,3,"W","S"), cr(0,6,0,"N"),
+        li(1,7,"WE"), li(0,4,"W"),
+        cr(0,9,1,"W").t(o1*2, 0))
 
 @glyphfn("auto", sps, sps)
 def z(_):
@@ -684,7 +691,6 @@ def show_grid(p):
     return grid.tag("guide") + p
 
 @modularfont(globals(),
-    ººFILEºº,
     "Vincent",
     "Regular",
     default_lsb=30,

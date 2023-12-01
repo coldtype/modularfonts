@@ -91,7 +91,6 @@ def codesafe(s):
 class modularfont(animation):
     def __init__(self,
         lookup,
-        file:Path,
         font_name="Test",
         style_name="Regular",
         cap_height=750,
@@ -105,13 +104,15 @@ class modularfont(animation):
         bg=None
         ):
 
+        self.file = lookup["__FILE__"]
+
         pw, ph = preview_size
         self.preview_frame = Rect(pw, ph if ph else (-descender*2) + cap_height)
 
-        self.dir = file.parent
+        self.dir = self.file.parent
         self.codesafeName= codesafe(font_name) + "_" + codesafe(style_name)
 
-        ufos_dir = file.parent / "ufos"
+        ufos_dir = self.file.parent / "ufos"
         ufos_dir.mkdir(exist_ok=True, parents=True)
         ufo_path = ufos_dir / f"{self.codesafeName}.ufo"
 
@@ -267,6 +268,13 @@ class modularfont(animation):
             txt.centerPoint(r, (idx, "C"))
 
         return txt
+    
+    def fontmake_font(self):
+        path = Path(self.fontmake_path(find=True))
+        if path.exists():
+            return Font(path)
+        else:
+            return Font.JBMono()
     
     def fontmake_path(self, find=True, version=None):
         ufo = DFont(self.ufo.path)
