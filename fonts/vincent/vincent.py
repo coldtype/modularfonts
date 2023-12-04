@@ -9,7 +9,7 @@ rs = Rect(750, 1000).o(0,-250).grid(3, 4)
 rs_extra = Rect(250, 1000).o(750,-250).grid(1,4)
 rs = rs + rs_extra
 
-o1 = 30
+o1 = 50
 o2 = 20
 
 rC0 = Rect(750-o1*2, 750-o1*2)

@@ -1,7 +1,7 @@
 from coldtype import *
 from modularfont import * #INLINE
 
-from textwrap import indent
+# https://e-daylight.jp/fonts/type/j/joc-line.html
 
 r0 = Rect(750, 750)
 rs = r0.grid(2, 2)
@@ -237,6 +237,8 @@ def smoke(r):
 
 def release(_):
     [gufo.buildGlyph(gf) for gf in gufo.glyph_fns]
+
+    from textwrap import indent
 
     ss01 = []
     for gf in gufo.glyph_fns:
