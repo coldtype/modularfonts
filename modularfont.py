@@ -145,11 +145,24 @@ class modularfont(animation):
         """
         `lookup` should probably be `globals()`
         """
+        def build_glyphfn(p):
+            gn = p.tag()
+            gc = p.copy()
+            @glyphfn(width="auto", glyph_name=gn)
+            def _inline_glyphfn():
+                return gc.copy()
+            return _inline_glyphfn
+
         self.glyph_fns = []
-        itms = lookup.items()
-        for k, v in itms:
+        items = lookup.items()
+        for k, v in items:
             if isinstance(v, glyphfn):
                 self.glyph_fns.append(v)
+            if k == "glyphs":
+                for p in v:
+                    self.glyph_fns.append(build_glyphfn(p))
+        
+        print(len(self.glyph_fns))
     
     def timeline(self, lookup):
         self._find_glyph_fns(lookup)
