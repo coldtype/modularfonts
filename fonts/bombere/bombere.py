@@ -13,7 +13,7 @@ VERSIONS = {
 spr = 0
 sps = 10
 
-basis = Font.Find("HEX Franklin v0.2 v")
+basis = Font.MutatorSans()
 
 version = __VERSION__["key"]
 print(">>>>>>>>>>", version)
@@ -22,7 +22,7 @@ def offset(c, *points, adds=[]):
     _offset = (233, 217)
     #_offset = (420, 480)
 
-    glyph = (StSt(c, basis, 1000, wght=1, wdth=0.4)
+    glyph = (StSt(c, basis, 1000, wght=1, wdth=0.75)
         .pen()
         .ro()
         .q2c()
@@ -87,7 +87,7 @@ def B():
     
 @glyphfn("auto", spr, spr, cover_lower=1)
 def C():
-    return offset("C", 15, 16, 3, 2, 20, 5, 12, 1)
+    return offset("C", 15, 16, 3, 2, 21, 5, 12, 1)
 
 @glyphfn("auto", sps, spr, cover_lower=1)
 def D():
@@ -169,7 +169,7 @@ def nine(): return offset("9", 1, 31, 16, 15, 26, 19)
 def exclam(): return offset("!", "auto")
 
 def show_grid(p):
-    return p
+    #return p
     try:
         original = p.find("guide")[0]
         original.fssw(hsl(0.3, a=0.1), 0, 0)
@@ -183,7 +183,6 @@ def show_grid(p):
         return p
 
 @modularfont(globals(),
-    ººFILEºº,
     "Bombere",
     version,
     preview_size=(1300, 1100),
