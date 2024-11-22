@@ -139,7 +139,7 @@ class modularfont(animation):
 
         super().__init__(
             self.preview_frame, timeline=self.timeline(lookup),
-            postfn=modularfont.ShowGrid)
+            post_preview=modularfont.ShowGrid)
     
     def _find_glyph_fns(self, lookup):
         """
@@ -177,9 +177,9 @@ class modularfont(animation):
         if False: # flip to true if you don't want to see the grid
             return result
 
-        gfn = result[0].data("gfn")
+        gfn = result[0][0].data("gfn")
         if not gfn:
-            print("! No glyph found")
+            print("! No glyph found", gfn)
             return result
         
         try:
