@@ -24,10 +24,13 @@ class glyphfn():
         self.bbox = None
         self._glyph_name_override = glyph_name
         self.cover_lower = cover_lower
+        self.built_glyph = None
     
     def add_font(self, font, return_framed_glyph=False):
         width = self.width
         
+        glyph = P()
+
         if return_framed_glyph or width == "auto":
             arg_count = len(inspect.signature(self.func).parameters)
             if arg_count >= 1:
@@ -60,8 +63,13 @@ class glyphfn():
 
         if return_framed_glyph:
             glyph.translate(-tx, 0)
-            return glyph.t(self.lsb, 0).data(frame=self.bbox)
+            glyph.t(self.lsb, 0).data(frame=self.bbox)
         
+        self.built_glyph = glyph
+
+        if return_framed_glyph:
+            return self.built_glyph
+
         return self
     
     def __call__(self, func):
@@ -162,7 +170,7 @@ class modularfont(animation):
                 for p in v:
                     self.glyph_fns.append(build_glyphfn(p))
         
-        print(len(self.glyph_fns))
+        #print(len(self.glyph_fns))
     
     def timeline(self, lookup):
         self._find_glyph_fns(lookup)
@@ -216,12 +224,14 @@ class modularfont(animation):
     def buildGlyph(self, glyph_fn):
         glyph_fn.add_font(self)
 
-        arg_count = len(inspect.signature(glyph_fn.func).parameters)
+        glyph_pen = glyph_fn.built_glyph
 
-        if arg_count >= 1:
-            glyph_pen = glyph_fn.func(glyph_fn.frame)
-        else:
-            glyph_pen = glyph_fn.func()
+        # arg_count = len(inspect.signature(glyph_fn.func).parameters)
+
+        # if arg_count >= 1:
+        #     glyph_pen = glyph_fn.func(glyph_fn.frame)
+        # else:
+        #     glyph_pen = glyph_fn.func()
     
         glyph_pen.fssw(-1, 0, 2)
         
