@@ -15,10 +15,10 @@ def mag(l, rejects=[]):
         .scale(0.75, 1)
         .ro())
     
-    letter_reversed = letter.copy().xor(P(r)).f(0)
+    letter_reversed = letter.copy().xor(P(r.inset(-300))).f(0)
     
     warped = (letter.copy()
-        .ch(warp(1, xs=500, ys=500, mult=30, base=ord(l)))
+        .ch(warp(1, xs=500, ys=500, mult=50, base=ord(l)))
         .fssw(1, 0, 70, 0)
         .ch(phototype(r, 25, 140, 23))
         .ch(potrace(r)).f(1)
@@ -41,35 +41,34 @@ def mag(l, rejects=[]):
         #         .ro()
         #         .fssw(-1, 1, 2)),
         warped#.explode()
-            .layer(2)
+            .layer(7)
             .map(lambda i, p: p
-                #.outline(20+i*20, drawInner=0)
-                #.ro()
                 .layer(
                     lambda a: a.fssw(-1, 1, 0+i*50),
                     lambda a: a.fssw(-1, 0, (0+i*50)-6),
-                    lambda a: a.f(0),
+                    #lambda a: a.explode()[0].f(0),
                     #lambda a: letter.copy().f(0),
+                    #lambda a: warped.copy().fssw(-1, 0, 3),
                     #lambda a: letter_reversed.copy(),
-                )
-                #.ch(phototype(f.a.r, 5, 43, 5, fill=1))
-                #.ch(potrace(f.a.r, turdsize=2500)).f(1)
-                #.intersection(letter.copy())
-                #.difference(warped.copy())
-                #.ch(phototype(f.a.r, 5, 83, 5))
-                #.ch(potrace(f.a.r, opticurve=0))
-                #.f(1)
-                )
+                ))
             .reverse()
             .append(warped.copy().fssw(-1, 1, 3))
-            .ch(shake(1, 6, ord(l)))
-            .ch(phototype(r.inset(0, -200), 3, 48, 9, fill=1))
-            .ch(potrace(r.inset(0, -200), turdsize=50)).f(1)
+            .append(letter_reversed.copy().f(0))
+            .append(warped.copy().f(0))
+            #.ch(shake(1, 5, ord(l)))
+            .ch(phototype(r.inset(0, -200), 3, 66, 9, fill=1))
+            .ch(potrace(r.inset(0, -200), turdsize=2050, opticurve=0, opttolerance=0.9)).f(1)
         )
         .scale(0.75)[0]
         .removeOverlap()
+        .round()
         #.filterContours(lambda i, c: i not in rejects)
+        #.print()
         )
+
+#@renderable((1920, 1080), bg=0)
+def tester(r):
+    return mag("U", []).fssw(-1, 1, 1)
 
 spr = 20
 sps = 20
@@ -90,6 +89,36 @@ def C(): return mag("C", [])
 @glyphfn("auto", spr, sps, cover_lower=1)
 def D(): return mag("D", [])
 
+@glyphfn("auto", spr, sps, cover_lower=1)
+def E(): return mag("E", [])
+
+@glyphfn("auto", spr, sps, cover_lower=1)
+def F(): return mag("F", [])
+
+@glyphfn("auto", spr, sps, cover_lower=1)
+def G(): return mag("G", [])
+
+@glyphfn("auto", spr, sps, cover_lower=1)
+def I(): return mag("I", [])
+
+@glyphfn("auto", spr, sps, cover_lower=1)
+def L(): return mag("L", [])
+
+@glyphfn("auto", spr, sps, cover_lower=1)
+def N(): return mag("N", [])
+
+@glyphfn("auto", spr, sps, cover_lower=1)
+def O(): return mag("O", [])
+
+@glyphfn("auto", spr, sps, cover_lower=1)
+def S(): return mag("S", [])
+
+@glyphfn("auto", spr, sps, cover_lower=1)
+def W(): return mag("W", [])
+
+@glyphfn("auto", spr, sps, cover_lower=1)
+def exclam(): return mag("!", [])
+
 @modularfont(globals(),
     "Nickel Magnetic",
     "Regular",
@@ -97,7 +126,8 @@ def D(): return mag("D", [])
     default_lsb=sps,
     default_rsb=sps,
     #filter=show_grid,
-    bg=1)
+    bg=1
+    )
 def gufo(f):
     return gufo.glyphViewer(f)
 

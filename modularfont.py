@@ -147,7 +147,8 @@ class modularfont(animation):
 
         super().__init__(
             self.preview_frame, timeline=self.timeline(lookup),
-            post_preview=modularfont.ShowGrid)
+            post_preview=modularfont.ShowGrid,
+            bg=None)
     
     def _find_glyph_fns(self, lookup):
         """
@@ -252,7 +253,7 @@ class modularfont(animation):
         
         #print(glyph_fn.glyph_name, len(glyph_pen_no_guides))
 
-        glyph_for_ufo = glyph_pen_no_guides.pen().ro().q2c()
+        glyph_for_ufo = glyph_pen_no_guides.pen().ro().q2c().round()
 
         glyph = glyph_for_ufo.toGlyph(
             name=glyph_fn.glyph_name,
